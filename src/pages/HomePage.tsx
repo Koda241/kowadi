@@ -2,63 +2,73 @@ import { Link } from 'react-router-dom';
 import { products } from '../lib/data';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
 
-const heroImage = 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/soko-yetu-hero-9pdj7sx-1763479388297.webp';
+const heroImage = 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/hero-kowadi-kfvh9in-1763491645986.webp';
 
-export default function HomePage() {
+interface HomePageProps {
+  searchTerm: string;
+}
+
+export default function HomePage({ searchTerm }: HomePageProps) {
+  const filteredProducts = products.filter(product => 
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       {/* Hero Section */}
       <section
-        className="relative w-full h-[60vh] bg-cover bg-center flex items-center justify-center"
+        className='relative w-full h-[60vh] bg-cover bg-center flex items-center justify-center'
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-            Bienvenue sur KOWADI
+        <div className='absolute inset-0 bg-black/60'></div>
+        <div className='relative text-center text-white px-4 z-10'>
+          <h1 className='text-5xl md:text-7xl font-extrabold mb-4 leading-tight tracking-tighter'>
+            KOWADI
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto">
-            Votre marché en ligne pour les trésors de l'Afrique et d'ailleurs.
+          <p className='text-xl md:text-2xl max-w-3xl mx-auto font-light'>
+            Tout au même endroit.
           </p>
-          <Button asChild size="lg" className="mt-8 bg-orange-500 hover:bg-orange-600">
-            <Link to="#produits">Explorer les produits</Link>
+          <Button asChild size='lg' className='mt-8 bg-yellow-400 text-black hover:bg-yellow-300 font-bold text-lg'>
+            <Link to='#produits'>Explorer les produits</Link>
           </Button>
         </div>
       </section>
 
-      {/* Search and Filters Section */}
-      <section id="search" className="py-12 bg-gray-50 dark:bg-gray-800/20">
-        <div className="container mx-auto px-6">
-            <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                  type="search"
-                  placeholder="Rechercher un article, une marque ou une catégorie..."
-                  className="w-full pl-12 pr-4 py-3 text-base border rounded-full shadow-sm"
-              />
-            </div>
-        </div>
-      </section>
-
       {/* Products Section */}
-      <section id="produits" className="py-16 sm:py-24">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Nos Produits Vedettes</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
-              <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                <CardHeader className="p-0">
-                  <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
+      <section id='produits' className='py-16 sm:py-24 bg-gray-50 dark:bg-black'>
+        <div className='container mx-auto px-6'>
+          <h2 className='text-3xl font-bold text-center mb-12 dark:text-white'>Nos Produits Vedettes</h2>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
+            {filteredProducts.map((product) => (
+              <Card key={product.id} className='overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col bg-white dark:bg-gray-900 rounded-lg border dark:border-gray-800 transform hover:-translate-y-2'>
+                <CardHeader className='p-0'>
+                  <img src={product.image} alt={product.name} className='w-full h-52 object-cover' />
                 </CardHeader>
-                <CardContent className="p-4 flex-grow">
-                  <CardTitle className="text-lg font-semibold mb-2 h-14">{product.name}</CardTitle>
-                  <p className="text-2xl font-bold text-orange-500">{product.price}</p>
+                <CardContent className='p-4 flex-grow'>
+                  <CardTitle className='text-lg font-semibold mb-2 h-14 dark:text-white'>{product.name}</CardTitle>
+                  <div>
+                    {product.status === 'disponible' && (
+                        <span className='text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200'>
+                            Disponible
+                        </span>
+                    )}
+                    {product.status === 'vendu' && (
+                        <span className='text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-red-600 bg-red-200'>
+                            Vendu
+                        </span>
+                    )}
+                    {product.status === 'non disponible' && (
+                        <span className='text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200'>
+                            Non disponible
+                        </span>
+                    )}
+                  </div>
+                  <p className='text-2xl font-bold text-yellow-500 mt-2'>{product.price.toLocaleString('fr-FR')} FCFA</p>
                 </CardContent>
-                <CardFooter className="p-4 bg-gray-50 dark:bg-gray-800/50">
-                  <Button asChild className="w-full bg-gray-800 text-white hover:bg-gray-900 dark:bg-gray-200 dark:text-black dark:hover:bg-white">
+                <CardFooter className='p-4 bg-gray-50 dark:bg-gray-800/50'>
+                  <Button asChild className='w-full bg-black text-white hover:bg-gray-800 dark:bg-yellow-400 dark:text-black dark:hover:bg-yellow-300'>
                     <Link to={`/produit/${product.id}`}>Voir l'annonce</Link>
                   </Button>
                 </CardFooter>

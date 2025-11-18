@@ -18,8 +18,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-[calc(100vh-80px)] bg-gray-100 dark:bg-gray-950'>
-      <Card className='mx-auto max-w-sm'>
+    <div className='flex items-center justify-center min-h-[calc(100vh-80px)] bg-black'>
+      <Card className='mx-auto max-w-md bg-white text-black'>
         <CardHeader>
           <CardTitle className='text-xl'>S'inscrire</CardTitle>
           <CardDescription>Entrez vos informations pour créer un compte</CardDescription>
@@ -49,7 +49,7 @@ export default function RegisterPage() {
               <Label htmlFor='password'>Mot de passe</Label>
               <Input id='password' type='password' />
             </div>
-            <Button type='submit' className='w-full'>
+            <Button type='submit' className='w-full bg-black text-white hover:bg-gray-800'>
               Créer un compte
             </Button>
           </form>

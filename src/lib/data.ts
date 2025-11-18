@@ -1,111 +1,79 @@
-export interface Product {
+export type Product = {
   id: number;
   name: string;
-  href: string;
-  imageSrc: string;
-  imageAlt: string;
+  category: string;
   price: number;
-  category: 'Électronique' | 'Électroménager' | 'Vêtements' | 'Mobilier' | 'Autres';
   condition: 'Neuf' | 'Occasion';
-  status: 'Disponible' | 'Vendu';
+  status: 'disponible' | 'vendu' | 'non disponible';
+  image: string;
   location: string;
-}
+  description?: string;
+};
 
-export const products: Product[] = [
-  {
-    id: 1,
-    name: 'Téléphone Infinix Smart 8',
-    href: '/products/1',
-    imageSrc: 'https://images.unsplash.com/photo-1598327105666-6d3754d26f04?q=80&w=2940&auto=format&fit=crop',
-    imageAlt: 'Smartphone Infinix Smart 8.',
-    price: 65000,
-    category: 'Électronique',
-    condition: 'Neuf',
-    status: 'Disponible',
-    location: 'Dakar, Sénégal'
-  },
-  {
-    id: 2,
-    name: 'Réfrigérateur Nasco',
-    href: '/products/2',
-    imageSrc: 'https://images.unsplash.com/photo-1633461429299-b1945517a6d4?q=80&w=2825&auto=format&fit=crop',
-    imageAlt: 'Réfrigérateur combiné Nasco.',
-    price: 180000,
-    category: 'Électroménager',
-    condition: 'Neuf',
-    status: 'Disponible',
-    location: 'Abidjan, Côte d\'Ivoire'
-  },
-  {
-    id: 3,
-    name: 'Boubou traditionnel en bazin',
-    href: '/products/3',
-    imageSrc: 'https://images.unsplash.com/photo-1622327583935-d835c32306ad?q=80&w=2787&auto=format&fit=crop',
-    imageAlt: 'Vêtement traditionnel africain.',
-    price: 25000,
-    category: 'Vêtements',
-    condition: 'Neuf',
-    status: 'Vendu',
-    location: 'Bamako, Mali'
-  },
-  {
-    id: 4,
-    name: 'Ordinateur portable HP EliteBook',
-    href: '/products/4',
-    imageSrc: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=2787&auto=format&fit=crop',
-    imageAlt: 'Ordinateur portable HP EliteBook.',
-    price: 250000,
-    category: 'Électronique',
-    condition: 'Occasion',
-    status: 'Disponible',
-    location: 'Cotonou, Bénin'
-  },
-  {
-    id: 5,
-    name: 'Table à manger en bois massif',
-    href: '/products/5',
-    imageSrc: 'https://images.unsplash.com/photo-1530018607932-6זי-4051833d?q=80&w=2787&auto=format&fit=crop',
-    imageAlt: 'Table en bois pour salle à manger.',
-    price: 95000,
-    category: 'Mobilier',
-    condition: 'Occasion',
-    status: 'Disponible',
-    location: 'Lomé, Togo'
-  },
-  {
-    id: 6,
-    name: 'Machine à laver Samsung',
-    href: '/products/6',
-    imageSrc: 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=2787&auto=format&fit=crop',
-    imageAlt: 'Machine à laver Samsung.',
-    price: 155000,
-    category: 'Électroménager',
-    condition: 'Occasion',
-    status: 'Vendu',
-    location: 'Dakar, Sénégal'
-  },
-  {
-    id: 7,
-    name: 'Ensemble de pagnes Wax Hollandais',
-    href: '/products/7',
-    imageSrc: 'https://images.unsplash.com/photo-1596892252329-41e913936a94?q=80&w=2787&auto=format&fit=crop',
-    imageAlt: 'Tissus africains colorés.',
-    price: 35000,
-    category: 'Vêtements',
-    condition: 'Neuf',
-    status: 'Disponible',
-    location: 'Abidjan, Côte d\'Ivoire'
-  },
-  {
-    id: 8,
-    name: 'Console de jeu PS4',
-    href: '/products/8',
-    imageSrc: 'https://images.unsplash.com/photo-1507457379470-08b800bebc67?q=80&w=2800&auto=format&fit=crop',
-    imageAlt: 'Console de jeu Playstation 4.',
-    price: 120000,
-    category: 'Électronique',
-    condition: 'Occasion',
-    status: 'Disponible',
-    location: 'Yaoundé, Cameroun'
+const placeholderImages = {
+  electronics: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/placeholder-electronics-uhp26f4-1763491652691.webp',
+  appliances: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/placeholder-appliances-eu70g4t-1763491660517.webp',
+  general: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/placeholder-general-ykydti9-1763491667492.webp',
+};
+
+let productsData: Product[] = [
+  { id: 1, name: 'Ordinateur Portable Dell XPS 15', category: 'Électronique', price: 750000, condition: 'Neuf', status: 'disponible', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-laptop-36n21z0-1763489467727.webp', location: 'Dakar' },
+  { id: 2, name: 'Smartphone Samsung Galaxy S23', category: 'Électronique', price: 250000, condition: 'Occasion', status: 'vendu', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-smartphone-8yqkqw5-1763489475143.webp', location: 'Thiès' },
+  { id: 3, name: 'Réfrigérateur LG Double Porte', category: 'Électroménager', price: 450000, condition: 'Neuf', status: 'disponible', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-fridge-2h7d51n-1763489482563.webp', location: 'Mbour' },
+  { id: 4, name: 'Machine à laver Samsung 8kg', category: 'Électroménager', price: 300000, condition: 'Occasion', status: 'non disponible', image: '', location: 'Saint-Louis' },
+  { id: 5, name: 'Télévision Smart TV 4K 55p', category: 'Électronique', price: 550000, condition: 'Neuf', status: 'disponible', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-tv-rhp4cfw-1763489642492.webp', location: 'Dakar' },
+  { id: 6, name: 'Canapé d\'angle scandinave', category: 'Mobilier', price: 375000, condition: 'Occasion', status: 'vendu', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-sofa-pifclhi-1763489649769.webp', location: 'Touba' },
+  { id: 7, name: 'Robe en wax traditionnel', category: 'Mode', price: 45000, condition: 'Neuf', status: 'disponible', image: '', location: 'Kaolack' },
+  { id: 8, name: 'Mixeur Blender Moulinex', category: 'Électroménager', price: 60000, condition: 'Neuf', status: 'disponible', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-blender-g86dc7o-1763489663924.webp', location: 'Ziguinchor' },
+  { id: 9, name: 'Appareil Photo Canon EOS R', category: 'Électronique', price: 850000, condition: 'Occasion', status: 'non disponible', image: '', location: 'Dakar' },
+  { id: 10, name: 'Montre de Luxe Homme', category: 'Accessoires', price: 125000, condition: 'Neuf', status: 'vendu', image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/112e678c-e02f-4242-9070-8d9c4d1fb0eb/product-watch-wq7ga5v-1763489678207.webp', location: 'Thiès' },
+  { id: 11, name: 'Table à manger en bois massif', category: 'Mobilier', price: 220000, condition: 'Neuf', status: 'disponible', image: '', location: 'Dakar' },
+  { id: 12, name: 'Fer à repasser Calor', category: 'Électroménager', price: 25000, condition: 'Occasion', status: 'disponible', image: '', location: 'Mbour' },
+];
+
+export const products: Product[] = productsData.map(product => {
+  if (!product.image) {
+    switch (product.category) {
+      case 'Électronique':
+        return { ...product, image: placeholderImages.electronics };
+      case 'Électroménager':
+        return { ...product, image: placeholderImages.appliances };
+      default:
+        return { ...product, image: placeholderImages.general };
+    }
   }
+  return product;
+});
+
+export const addProduct = (product: Omit<Product, 'id' | 'location'>) => {
+  const newProduct: Product = {
+    id: products.length + 1,
+    location: 'Dakar', // Default location for new products
+    ...product,
+  };
+  // Ensure new products also get a placeholder if they lack an image
+  if (!newProduct.image) {
+     switch (newProduct.category) {
+      case 'Électronique':
+        newProduct.image = placeholderImages.electronics;
+        break;
+      case 'Électroménager':
+        newProduct.image = placeholderImages.appliances;
+        break;
+      default:
+        newProduct.image = placeholderImages.general;
+        break;
+    }
+  }
+  products.unshift(newProduct);
+};
+
+export const categories = [
+  { name: 'Électronique', icon: '💻' },
+  { name: 'Électroménager', icon: '🔌' },
+  { name: 'Mobilier', icon: '🛋️' },
+  { name: 'Mode', icon: '👗' },
+  { name: 'Accessoires', icon: '⌚' },
+  { name: 'Immobilier', icon: '🏠' },
+  { name: 'Véhicules', icon: '🚗' },
 ];
